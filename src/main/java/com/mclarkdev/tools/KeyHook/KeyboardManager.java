@@ -25,11 +25,7 @@ public class KeyboardManager {
 		KeyboardHook.getInstance().attachListener(keyListener);
 	}
 
-	public void attachListener(EventListener listener) {
-
-		if (this.listener != null) {
-			throw new IllegalArgumentException("listener already attached");
-		}
+	public void setListener(EventListener listener) {
 
 		this.listener = listener;
 	}
