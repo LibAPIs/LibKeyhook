@@ -25,7 +25,11 @@ public class KeyboardHook {
 		(new Thread(runThread)).start();
 	}
 
-	public void setListener(KeyListener listener) {
+	public void attachListener(KeyListener listener) {
+
+		if (this.listener != null) {
+			throw new IllegalArgumentException("listener already attached");
+		}
 
 		this.listener = listener;
 	}

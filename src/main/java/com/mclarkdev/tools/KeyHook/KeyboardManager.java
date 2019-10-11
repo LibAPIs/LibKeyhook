@@ -22,10 +22,14 @@ public class KeyboardManager {
 	private KeyboardManager() {
 
 		keysDown = new HashSet<>();
-		KeyboardHook.getInstance().setListener(keyListener);
+		KeyboardHook.getInstance().attachListener(keyListener);
 	}
 
-	public void setListener(EventListener listener) {
+	public void attachListener(EventListener listener) {
+
+		if (this.listener != null) {
+			throw new IllegalArgumentException("listener already attached");
+		}
 
 		this.listener = listener;
 	}
@@ -34,9 +38,14 @@ public class KeyboardManager {
 
 		public void onKeyUp(KBDLLHOOKSTRUCT event) {
 
+			ArrayList<Integer> keys;
 			synchronized (keysDown) {
+
 				keysDown.remove(Integer.valueOf(event.vkCode));
+				keys = new ArrayList<>(keysDown);
 			}
+
+			listener.onEvent(keys);
 		}
 
 		public void onKeyDown(KBDLLHOOKSTRUCT event) {
