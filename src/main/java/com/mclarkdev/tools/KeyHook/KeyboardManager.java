@@ -3,34 +3,37 @@ package com.mclarkdev.tools.KeyHook;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import com.mclarkdev.tools.KeyHook.KeyboardHook.KeyListener;
 import com.sun.jna.platform.win32.WinUser.KBDLLHOOKSTRUCT;
 
+/**
+ * The KeyboardManager handles the key press events processed from the
+ * NativeKeyHook and maintains a map of all the keys currently pressed.
+ * Attaching a listener to this manager will cause each keyboard event to return
+ * a map of all keys currently pressed.
+ * 
+ * @author Matt Clark
+ *
+ */
 public class KeyboardManager {
 
-	public interface EventListener {
+	private static final KeyboardManager keyboardManager = new KeyboardManager();
 
-		public void onEvent(ArrayList<Integer> keyMap);
-	}
+	private final HashSet<Integer> keysDown = new HashSet<>();
 
-	private static KeyboardManager keyboardManager;
-
-	private final HashSet<Integer> keysDown;
-
-	private EventListener listener;
+	private KeyboardListener listener;
 
 	private KeyboardManager() {
 
-		keysDown = new HashSet<>();
-		KeyboardHook.getInstance().attachListener(keyListener);
+		NativeKeyHook.getHook()//
+				.attachListener(keyListener);
 	}
 
-	public void setListener(EventListener listener) {
+	public void setListener(KeyboardListener listener) {
 
 		this.listener = listener;
 	}
 
-	private KeyListener keyListener = new KeyListener() {
+	private NativeKeyListener keyListener = new NativeKeyListener() {
 
 		public void onKeyUp(KBDLLHOOKSTRUCT event) {
 
@@ -41,7 +44,9 @@ public class KeyboardManager {
 				keys = new ArrayList<>(keysDown);
 			}
 
-			listener.onEvent(keys);
+			if (listener != null) {
+				listener.onKeysChanged(keys);
+			}
 		}
 
 		public void onKeyDown(KBDLLHOOKSTRUCT event) {
@@ -53,15 +58,13 @@ public class KeyboardManager {
 				keys = new ArrayList<>(keysDown);
 			}
 
-			listener.onEvent(keys);
+			if (listener != null) {
+				listener.onKeysChanged(keys);
+			}
 		}
 	};
 
-	public static KeyboardManager getInstance() {
-
-		if (keyboardManager == null) {
-			keyboardManager = new KeyboardManager();
-		}
+	public static KeyboardManager getManager() {
 
 		return keyboardManager;
 	}

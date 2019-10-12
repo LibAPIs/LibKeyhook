@@ -5,27 +5,27 @@ import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef.LRESULT;
 import com.sun.jna.platform.win32.WinDef.WPARAM;
 
-public class KeyboardHook {
+/**
+ * The NativeKeyHook sets up the Windows keyboard hooks and passes the events
+ * through to the KeyboardManager.
+ * 
+ * @author Matt Clark
+ *
+ */
+public class NativeKeyHook {
 
-	public interface KeyListener {
+	private static NativeKeyHook keyboardHook;
 
-		public void onKeyUp(User32.KBDLLHOOKSTRUCT lParam);
-
-		public void onKeyDown(User32.KBDLLHOOKSTRUCT lParam);
-	}
-
-	private static KeyboardHook keyboardHook;
-
-	private KeyListener listener;
+	private NativeKeyListener listener;
 
 	private User32.HHOOK hHook;
 
-	private KeyboardHook() {
+	private NativeKeyHook() {
 
 		(new Thread(runThread)).start();
 	}
 
-	public void attachListener(KeyListener listener) {
+	public void attachListener(NativeKeyListener listener) {
 
 		if (this.listener != null) {
 			throw new IllegalArgumentException("listener already attached");
@@ -56,7 +56,7 @@ public class KeyboardHook {
 		public void run() {
 
 			// register the hook
-			KeyboardHook.this.hHook = User32.INSTANCE.SetWindowsHookEx(//
+			NativeKeyHook.this.hHook = User32.INSTANCE.SetWindowsHookEx(//
 					User32.WH_KEYBOARD_LL, callback, Kernel32.INSTANCE.GetModuleHandle(null), 0);
 
 			// look for messages forever
@@ -74,10 +74,10 @@ public class KeyboardHook {
 		}
 	};
 
-	public static KeyboardHook getInstance() {
+	protected static NativeKeyHook getHook() {
 
 		if (keyboardHook == null) {
-			keyboardHook = new KeyboardHook();
+			keyboardHook = new NativeKeyHook();
 		}
 
 		return keyboardHook;
