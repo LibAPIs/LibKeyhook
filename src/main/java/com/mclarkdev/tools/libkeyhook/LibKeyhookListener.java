@@ -1,4 +1,4 @@
-package com.mclarkdev.tools.KeyHook;
+package com.mclarkdev.tools.libkeyhook;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Matt Clark
  *
  */
-public interface KeyboardListener {
+public interface LibKeyhookListener {
 
 	public void onKeysChanged(ArrayList<Integer> keySet);
 }

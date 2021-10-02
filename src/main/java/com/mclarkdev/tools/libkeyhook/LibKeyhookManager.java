@@ -1,4 +1,4 @@
-package com.mclarkdev.tools.KeyHook;
+package com.mclarkdev.tools.libkeyhook;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,26 +14,26 @@ import com.sun.jna.platform.win32.WinUser.KBDLLHOOKSTRUCT;
  * @author Matt Clark
  *
  */
-public class KeyboardManager {
+public class LibKeyhookManager {
 
-	private static final KeyboardManager keyboardManager = new KeyboardManager();
+	private static final LibKeyhookManager keyboardManager = new LibKeyhookManager();
 
 	private final HashSet<Integer> keysDown = new HashSet<>();
 
-	private KeyboardListener listener;
+	private LibKeyhookListener listener;
 
-	private KeyboardManager() {
+	private LibKeyhookManager() {
 
-		NativeKeyHook.getHook()//
+		LibKeyhookNativeHook.getHook()//
 				.attachListener(keyListener);
 	}
 
-	public void setListener(KeyboardListener listener) {
+	public void setListener(LibKeyhookListener listener) {
 
 		this.listener = listener;
 	}
 
-	private NativeKeyListener keyListener = new NativeKeyListener() {
+	private LibKeyhookNativeListener keyListener = new LibKeyhookNativeListener() {
 
 		public void onKeyUp(KBDLLHOOKSTRUCT event) {
 
@@ -64,7 +64,7 @@ public class KeyboardManager {
 		}
 	};
 
-	public static KeyboardManager getManager() {
+	public static LibKeyhookManager getManager() {
 
 		return keyboardManager;
 	}

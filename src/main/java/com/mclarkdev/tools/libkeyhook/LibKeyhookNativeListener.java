@@ -1,4 +1,4 @@
-package com.mclarkdev.tools.KeyHook;
+package com.mclarkdev.tools.libkeyhook;
 
 import com.sun.jna.platform.win32.User32;
 
@@ -8,7 +8,7 @@ import com.sun.jna.platform.win32.User32;
  * @author Matt Clark
  *
  */
-public interface NativeKeyListener {
+public interface LibKeyhookNativeListener {
 
 	public void onKeyUp(User32.KBDLLHOOKSTRUCT lParam);
 

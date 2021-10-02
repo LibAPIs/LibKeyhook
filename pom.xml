@@ -5,20 +5,20 @@
 
 	<organization>
 		<name>MClarkDev.com</name>
-		<url>https://www.mclarkdev.com/tools/KeyHook</url>
+		<url>https://www.mclarkdev.com/tools/libkeyhook</url>
 	</organization>
 
 	<groupId>com.mclarkdev.tools</groupId>
-	<artifactId>KeyHook</artifactId>
+	<artifactId>libkeyhook</artifactId>
 	<version>1.1</version>
 	<packaging>jar</packaging>
 
-	<name>KeyHook</name>
-	<url>http://www.mclarkdev.com/tools/KeyHook</url>
+	<name>libkeyhook</name>
+	<url>http://www.mclarkdev.com/tools/libkeyhook</url>
 	<description>A minimal, Java based, global key press listener.</description>
 
 	<scm>
-		<url>https://git.mclarkdev.com/MClarkDev.com--Public/KeyHook.git</url>
+		<url>https://git.mclarkdev.com/MClarkDev.com--Public/libkeyhook.git</url>
 	</scm>
 
 	<properties>

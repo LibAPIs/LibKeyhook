@@ -11,7 +11,7 @@ Using the library is as simple as adding a Maven dependency and a few lines to h
 ```
 <dependency>
     <groupId>com.mclarkdev.tools</groupId>
-    <artifactId>KeyHook</artifactId>
+    <artifactId>libkeyhook</artifactId>
     <version>1.0</version>
 </dependency>
 ```
@@ -34,9 +34,9 @@ private EventListener eventListener = new EventListener() {
 };
 ```
 
-Attach the listener to the KeyboardManager.
+Attach the listener to the LibKeyhookManager.
 
 ```
-KeyboardManager.getInstance().attachListener(eventListener);
+LibKeyhookManager.getInstance().attachListener(eventListener);
 ```
 

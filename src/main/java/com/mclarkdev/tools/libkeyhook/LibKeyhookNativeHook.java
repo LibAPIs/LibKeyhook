@@ -1,4 +1,4 @@
-package com.mclarkdev.tools.KeyHook;
+package com.mclarkdev.tools.libkeyhook;
 
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.User32;
@@ -12,20 +12,20 @@ import com.sun.jna.platform.win32.WinDef.WPARAM;
  * @author Matt Clark
  *
  */
-public class NativeKeyHook {
+public class LibKeyhookNativeHook {
 
-	private static NativeKeyHook keyboardHook;
+	private static LibKeyhookNativeHook keyboardHook;
 
-	private NativeKeyListener listener;
+	private LibKeyhookNativeListener listener;
 
 	private User32.HHOOK hHook;
 
-	private NativeKeyHook() {
+	private LibKeyhookNativeHook() {
 
 		(new Thread(runThread)).start();
 	}
 
-	public void attachListener(NativeKeyListener listener) {
+	public void attachListener(LibKeyhookNativeListener listener) {
 
 		if (this.listener != null) {
 			throw new IllegalArgumentException("listener already attached");
@@ -56,7 +56,7 @@ public class NativeKeyHook {
 		public void run() {
 
 			// register the hook
-			NativeKeyHook.this.hHook = User32.INSTANCE.SetWindowsHookEx(//
+			LibKeyhookNativeHook.this.hHook = User32.INSTANCE.SetWindowsHookEx(//
 					User32.WH_KEYBOARD_LL, callback, Kernel32.INSTANCE.GetModuleHandle(null), 0);
 
 			// look for messages forever
@@ -74,10 +74,10 @@ public class NativeKeyHook {
 		}
 	};
 
-	protected static NativeKeyHook getHook() {
+	protected static LibKeyhookNativeHook getHook() {
 
 		if (keyboardHook == null) {
-			keyboardHook = new NativeKeyHook();
+			keyboardHook = new LibKeyhookNativeHook();
 		}
 
 		return keyboardHook;
