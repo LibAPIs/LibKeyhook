@@ -21,6 +21,23 @@
 		<url>https://git.mclarkdev.com/MClarkDev.com--Public/libkeyhook.git</url>
 	</scm>
 
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Matt Clark</name>
+			<email>matt@mclarkdev.com</email>
+			<url>https://about.mclarkdev.com/posts/1097/libapis/</url>
+			<organization>MClarkDev</organization>
+			<organizationUrl>http://about.mclarkdev.com/</organizationUrl>
+		</developer>
+	</developers>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>1.8</maven.compiler.target>
