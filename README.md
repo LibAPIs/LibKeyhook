@@ -1,22 +1,20 @@
-# KeyHook
+# LibKeyHook
 
-A Java/Native global keyboard hook.
+A minimal, Java based, global key press listener.
 
-## Usage
+## Maven Dependency
 
-Using the library is as simple as adding a Maven dependency and a few lines to handle the events.
-
-### Maven
+Include the library in your project by adding the following dependency to your pom.xml
 
 ```
 <dependency>
-    <groupId>com.mclarkdev.tools</groupId>
-    <artifactId>libkeyhook</artifactId>
-    <version>1.0</version>
+	<groupId>com.mclarkdev.tools</groupId>
+	<artifactId>libkeyhook</artifactId>
+	<version>1.5.1</version>
 </dependency>
 ```
 
-### Java
+## Example
 
 Create an EventListener to handle the keyboard events.
 
@@ -40,3 +38,6 @@ Attach the listener to the LibKeyhookManager.
 LibKeyhookManager.getInstance().attachListener(eventListener);
 ```
 
+# License
+
+Open source & free for all. ❤

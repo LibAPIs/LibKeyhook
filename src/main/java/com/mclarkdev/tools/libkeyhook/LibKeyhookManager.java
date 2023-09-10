@@ -6,17 +6,26 @@ import java.util.HashSet;
 import com.sun.jna.platform.win32.WinUser.KBDLLHOOKSTRUCT;
 
 /**
+ * LibKeyhook // LibKeyhookManager
+ * 
  * The KeyboardManager handles the key press events processed from the
  * NativeKeyHook and maintains a map of all the keys currently pressed.
  * Attaching a listener to this manager will cause each keyboard event to return
  * a map of all keys currently pressed.
- * 
- * @author Matt Clark
- *
  */
 public class LibKeyhookManager {
 
 	private static final LibKeyhookManager keyboardManager = new LibKeyhookManager();
+
+	/**
+	 * Returns a static instance of the KeyboardManager.
+	 * 
+	 * @return the keyboard manager
+	 */
+	public static LibKeyhookManager getManager() {
+
+		return keyboardManager;
+	}
 
 	private final HashSet<Integer> keysDown = new HashSet<>();
 
@@ -28,6 +37,11 @@ public class LibKeyhookManager {
 				.attachListener(keyListener);
 	}
 
+	/**
+	 * Set the listener which will receive keyboard events.
+	 * 
+	 * @param listener the listener
+	 */
 	public void setListener(LibKeyhookListener listener) {
 
 		this.listener = listener;
@@ -63,9 +77,4 @@ public class LibKeyhookManager {
 			}
 		}
 	};
-
-	public static LibKeyhookManager getManager() {
-
-		return keyboardManager;
-	}
 }

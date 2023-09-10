@@ -6,11 +6,10 @@ import com.sun.jna.platform.win32.WinDef.LRESULT;
 import com.sun.jna.platform.win32.WinDef.WPARAM;
 
 /**
- * The NativeKeyHook sets up the Windows keyboard hooks and passes the events
- * through to the KeyboardManager.
+ * LibKeyhook // LibKeyhookNativeHook
  * 
- * @author Matt Clark
- *
+ * The NativeHook sets up the Windows keyboard hooks and passes the events
+ * through to the KeyboardManager.
  */
 public class LibKeyhookNativeHook {
 
@@ -25,6 +24,13 @@ public class LibKeyhookNativeHook {
 		(new Thread(runThread)).start();
 	}
 
+	/**
+	 * Attach a listener to the hook.
+	 * 
+	 * Throws IllegalArgumentException if listener already attached.
+	 * 
+	 * @param listener the listener
+	 */
 	public void attachListener(LibKeyhookNativeListener listener) {
 
 		if (this.listener != null) {
@@ -34,6 +40,9 @@ public class LibKeyhookNativeHook {
 		this.listener = listener;
 	}
 
+	/**
+	 * The low-level callback.
+	 */
 	private User32.LowLevelKeyboardProc callback = new User32.LowLevelKeyboardProc() {
 
 		public LRESULT callback(int nCode, WPARAM wParam, User32.KBDLLHOOKSTRUCT lParam) {
@@ -74,6 +83,11 @@ public class LibKeyhookNativeHook {
 		}
 	};
 
+	/**
+	 * Returns the static instance of the hook.
+	 * 
+	 * @return the static hook
+	 */
 	protected static LibKeyhookNativeHook getHook() {
 
 		if (keyboardHook == null) {
